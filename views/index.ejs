@@ -1,0 +1,52 @@
+<!-- index.ejs -->
+
+<%- include("partials/header.ejs") %>
+    <div class="container">
+        <div class="wrapped-body">
+            <% if (locals.posts && locals.posts.length> 0) { %>
+                <% locals.posts.forEach(post=> { %>
+                    <div class="container">
+                        <div class="content">
+                            <!-- Her bir postun başlığı -->
+                            <h2>
+                                <%= post.title %>
+                            </h2>
+                            <!-- Her bir postun yazarı -->
+                            <h3 class="author">
+                                <%= post.author %>
+                            </h3>
+                            <% post.text.forEach(paragraph=> { %>
+                                <!-- Her bir paragraf -->
+                                <p class="text">
+                                    <%= paragraph %>
+                                </p>
+                                <% }); %>
+                                    <div class="container">
+                                        <!-- DELETE işlemi için form ekledik -->
+                                        <form action="/delete/<%= post.id %>" method="POST">
+                                            <button type="submit" class="btn">&#x274C</button>
+                                        </form>
+                                        <!-- EDIT işlemi için form ekledik -->
+                                        <form action="/edit/<%= post.id %>" method="GET">
+                                            <button type="submit" class="btn">✏️</button>
+                                        </form>
+                                    </div>
+                        </div>
+                    </div>
+                    <% }); %>
+                        <% } else { %>
+                            <!-- Post yoksa gösterilecek mesaj -->
+                            <h2>When your text is added, it will appear here.</h2>
+                            <% } %>
+                                <h2 class="edit-h2">share your story</h2>
+                                <form action="/submit" method="POST">
+                                    <!-- Yeni post ekleme formu -->
+                                    <input name="title" type="text" class="text-input text-title" placeholder="Title" />
+                                    <input name="author" type="text" class="text-input author" placeholder="Author" />
+                                    <div class="text-area-wrapper">
+                                        <textarea name="text" class="text-input area"
+                                            placeholder="Your Story"></textarea>
+                                    </div>
+                                    <input class="btn-submit" type="submit" value="SUBMIT" />
+                                </form>
+                                <%- include("partials/footer.ejs") %>

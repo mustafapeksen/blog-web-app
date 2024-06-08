@@ -1,0 +1,30 @@
+<!-- edit.ejs -->
+
+<%- include("partials/header.ejs") %>
+
+    <div class="container">
+        <div class="wrapped-body">
+            <h2 class="edit-h2">Edit Post</h2>
+            <form action="/edit/<%= post.id %>" method="POST">
+                <div class="flex">
+                    <!-- Başlık düzenleme input'u -->
+                    <label for="title"></label>
+                    <input type="text" id="title" name="title" value="<%= post.title %>" required>
+
+                    <!-- Yazar düzenleme input'u -->
+                    <label for="author"></label>
+                    <input type="text" id="author" name="author" value="<%= post.author %>" required>
+                </div>
+                <!-- Metin düzenleme textarea'sı -->
+                <label for="text"></label>
+                <div class="text-area-wrapper">
+                    <textarea id="text" name="text" required><%= post.text.join('\n') %></textarea>
+                </div>
+
+                <!-- Değişiklikleri kaydetme butonu -->
+                <button class="save" type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <%- include("partials/footer.ejs") %>
